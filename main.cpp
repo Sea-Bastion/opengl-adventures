@@ -18,6 +18,8 @@ Name: opengl game
 #include <GL/glext.h>
 #include <AL/alc.h>
 #include <AL/al.h>
+#include <glm/glm.hpp>
+#include <glm/*>
 #include <window_exception.hpp>
 
 GLFWwindow *window;
@@ -33,6 +35,7 @@ int main(int argc, char **argv){
 	window = glfwCreateWindow(800, 600, "window", 0, 0);
 	if (!window){
 		std::cerr << "failed to open window" << std::endl;
+		return 301;
 	}
 
 	glfwMakeContextCurrent(window);

@@ -1,5 +1,5 @@
 DFLAGS = -g
-CFLAGS = -lglut -lGL -lGLU -lGLEW `pkg-config --cflags --libs glfw3 openal`
+CFLAGS = -lglut -lGL -lGLU -lGLEW `pkg-config --cflags --libs glfw3 openal `
 
 CC = g++
 VERSION = c++17
