@@ -19,7 +19,6 @@ Name: opengl game
 #include <AL/alc.h>
 #include <AL/al.h>
 #include <glm/glm.hpp>
-#include <glm/*>
 #include <window_exception.hpp>
 
 GLFWwindow *window;
