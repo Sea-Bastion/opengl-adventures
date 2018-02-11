@@ -29,11 +29,9 @@ class mesh{
 		glm::ivec3 pos;
 		glm::ivec2 size;
 		unsigned Vid, Iid; // vertex id, indices id
-		const int *indices = new int[8]{
-			0,0,
-			1,0,
-			0,1,
-			1,1
+		const unsigned short indices[6]{
+			0,1,2,
+			1,2,3
 		};
 
 		
