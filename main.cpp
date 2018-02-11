@@ -1,52 +1,40 @@
 /*
 
 Authors: Sebastian Cypert
-Name: opengl game
-
-	it is the starting point for the opengl game program
+File Name: main.cpp
+ Description:
+	it is the starting point for the opengl adventures program
 	initalizes glfw and opens a window as well as in charge of running render functions
 */
 
 
-
 #include <iostream>
 #include <GL/glew.h>
-#include <GL/gl.h>
-#include <GLFW/glfw3.h>
 #include <GL/glut.h>
-#include <GL/glu.h>
-#include <GL/glext.h>
-#include <AL/alc.h>
-#include <AL/al.h>
 #include <glm/glm.hpp>
 #include <window_exception.hpp>
 
-GLFWwindow *window;
+void render();
 
 //--------------------------starting function-----------------------
 int main(int argc, char **argv){
 
-	if(!glfwInit()){
-		std::cerr << "failed to initalize glfw" << std::endl;
-		return 666;
-	}
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowSize(800,600);
+	glutCreateWindow("window");
 
-	window = glfwCreateWindow(800, 600, "window", 0, 0);
-	if (!window){
-		std::cerr << "failed to open window" << std::endl;
-		return 301;
-	}
+	glutDisplayFunc(render);
+	glutMainLoop();
 
-	glfwMakeContextCurrent(window);
-	glEnable(GL_TEXTURE_2D);
+}
 
-	while (!glfwWindowShouldClose(window)){
-		glfwPollEvents();
-		glClear(GL_COLOR_BUFFER_BIT);
+void render(){
 
-		glfwSwapBuffers(window);
-	}
+	glClear(GL_COLOR_BUFFER_BIT);
 
-	glfwTerminate();
+	glRectf(-.5,.5,.5,-.5);
+
+	glutSwapBuffers();
 
 }

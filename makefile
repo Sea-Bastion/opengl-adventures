@@ -1,9 +1,9 @@
 DFLAGS = -g
-CFLAGS = -lglut -lGL -lGLU -lGLEW `pkg-config --cflags --libs glfw3 openal `
+CFLAGS = -lglut -lGL -lGLU -lGLEW `pkg-config --cflags --libs openal `
 
 CC = g++
 VERSION = c++17
-INCLUDE = 
+INCLUDE = classes/cpp/*
 HEADERS = -Iclasses/headers
 
 
