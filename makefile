@@ -1,20 +1,26 @@
 DFLAGS = -g
-CFLAGS = -Wall -lglut -lGL -lGLU -lGLEW `pkg-config --cflags --libs glfw3 openal `
+CFLAGS = -Wall -lglut -lGL -lGLU -lGLEW -lSOIL `pkg-config --cflags --libs glfw3 openal  `
 
 CC = g++
 VERSION = c++17
 INCLUDE = classes/cpp/*
 HEADERS = -Iclasses/headers
 
+#binary directory
+BINDIR = compiled/release
+#debug directory
+DBUGDIR = compiled/debug
 
-run: compiled/release/main
+
+run: $(BINDIR)/main
 	./$<
 
-compiled/release/main: main.cpp $(INCLUDE)
-	$(CC) -o $@ $< $(INCLUDE) --std=$(VERSION) $(HEADERS) $(CFLAGS)
+$(BINDIR)/main: main.cpp $(INCLUDE)
+	$(CC) -o $@ $^ --std=$(VERSION) $(HEADERS) $(CFLAGS)
 
-debug: compiled/debug/main
+debug: $(DBUGDIR)/main
 	gdb $<
 
-compiled/debug/main: main.cpp
-	$(CC) $(DFLAGS) -o $@ $< $(INCLUDE) --std=$(VERSION) $(HEADERS) $(CFLAGS)
+$(DBUGDIR)/main: main.cpp $(INCLUDE) 
+	$(CC) $(DFLAGS) -o $@ $^ --std=$(VERSION) $(HEADERS) $(CFLAGS)
+

@@ -16,13 +16,13 @@ Description:
 #include <glm/vec3.hpp>
 #include <GLFW/glfw3.h>
 
-class mesh{
+class Mesh{
 	public:
-		mesh(glm::dvec2 size, glm::dvec3 pos);
-		virtual ~mesh();
+		Mesh(glm::dvec2 size, glm::dvec3 pos);
+		virtual ~Mesh();
 		void render();
 		void setPos(glm::dvec3 pos);
-		void setPosRel(glm::dvec3 pos);
+		void setPosRel(glm::dvec3 pos); //set position relative to current position
 		void setSize(glm::dvec2);
 
 	private:

@@ -6,13 +6,10 @@ Desciption:
 	gives meaning to the mesh class and describes all it functions
 
 */
-#include <GL/glew.h>
-#include <mesh.hpp>
-#include <cstdlib>
+#include <Mesh.hpp>
 #include <GL/glut.h>
-#include <glm/glm.hpp>
 
-mesh::mesh(glm::dvec2 size, glm::dvec3 pos)
+Mesh::Mesh(glm::dvec2 size, glm::dvec3 pos)
 {
 
 	/*
@@ -46,7 +43,7 @@ mesh::mesh(glm::dvec2 size, glm::dvec3 pos)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void mesh::render(){
+void Mesh::render(){
 
 	glEnableVertexAttribArray(0);
 
@@ -60,7 +57,7 @@ void mesh::render(){
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-mesh::~mesh()
+Mesh::~Mesh()
 {
 	glDeleteBuffers(1, &Iid);
 	glDeleteBuffers(1, &Vid);
