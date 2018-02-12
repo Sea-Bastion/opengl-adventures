@@ -1,5 +1,5 @@
 DFLAGS = -g
-CFLAGS = -Wall -lglut -lGL -lGLU -lGLEW -lSOIL `pkg-config --cflags --libs glfw3 openal  `
+CFLAGS = -Wall -lglut -lGL -lGLU -lGLEW -lSOIL `pkg-config --cflags --libs glfw3 openal`
 
 CC = g++
 VERSION = c++17

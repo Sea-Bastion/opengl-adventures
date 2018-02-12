@@ -12,6 +12,7 @@ Description:
 #define MESH_H
 
 #include <GL/glew.h>
+#include <Sprite.hpp>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <GLFW/glfw3.h>
@@ -19,8 +20,10 @@ Description:
 class Mesh{
 	public:
 		Mesh(glm::dvec2 size, glm::dvec3 pos);
+		Mesh(glm::dvec2 size, glm::dvec3 pos, Sprite texture);
 		virtual ~Mesh();
 		void render();
+		void setTexture(Sprite texture);
 		void setPos(glm::dvec3 pos);
 		void setPosRel(glm::dvec3 pos); //set position relative to current position
 		void setSize(glm::dvec2);
@@ -28,10 +31,17 @@ class Mesh{
 	private:
 		glm::ivec3 pos;
 		glm::ivec2 size;
-		unsigned Vid, Iid; // vertex id, indices id
-		const unsigned short indices[6]{
+		unsigned Vid, Iid, Tid; // vertex id, indices id
+		Sprite *Texture;
+		const unsigned char indices[6]{
 			0,1,2,
 			1,2,3
+		};
+		const unsigned char TexCoords[8]{
+			0,0,
+			1,0,
+			0,1,
+			1,1
 		};
 
 		

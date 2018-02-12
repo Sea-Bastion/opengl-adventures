@@ -18,7 +18,7 @@ Name: opengl game
 #include <glm/glm.hpp>
 
 GLFWwindow *window;
-const GLFWvidmode *monitor = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
 
 //--------------------------starting function-----------------------
 int main(int argc, char **argv){
@@ -33,11 +33,7 @@ int main(int argc, char **argv){
 
 	//make the window
 	glfwWindowHint(GLFW_RESIZABLE, false);
-	glfwWindowHint(GLFW_RED_BITS, monitor->redBits);
-	glfwWindowHint(GLFW_GREEN_BITS, monitor->greenBits);
-	glfwWindowHint(GLFW_BLUE_BITS, monitor->blueBits);
-	glfwWindowHint(GLFW_REFRESH_RATE, monitor->refreshRate);
-	window = glfwCreateWindow(800, 600, "window", glfwGetPrimaryMonitor(), 0);
+	window = glfwCreateWindow(800, 600, "window", 0, 0);
 	if (!window){
 		std::cerr << "failed to open window" << std::endl;
 		return 301;
@@ -51,10 +47,13 @@ int main(int argc, char **argv){
 	}
 	glEnable(GL_TEXTURE_2D);
 
+	//make texture
+	Sprite texture = Sprite("resources/pepe.png");
+
 	//make meshes
 	glm::dvec2 size(.375, .5);
 	glm::dvec3 pos(0,0,0);
-	Mesh square = Mesh(size, pos);
+	Mesh square = Mesh(size, pos, texture);
 
 	//-------------------------------------render loop--------------------------------
 	while (!glfwWindowShouldClose(window)){

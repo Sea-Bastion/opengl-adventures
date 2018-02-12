@@ -25,6 +25,7 @@ Sprite::Sprite(std::string filepath){
 	//load image into buffer
 	int width, height;
 	unsigned char *image = SOIL_load_image(filepath.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+	std::cout << image;
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	SOIL_free_image_data(image);
 
@@ -45,4 +46,8 @@ void Sprite::bind(int sampler){
 
 void Sprite::unbind(){
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+Sprite::~Sprite(){
+	glDeleteBuffers(1, &id);
 }
