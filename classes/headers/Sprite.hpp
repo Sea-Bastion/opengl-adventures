@@ -1,3 +1,13 @@
+/*
+
+Authors: Sebastian Cypert
+File Name: Sprite.hpp
+Description:
+	Defines the Sprite class. the Sprite class is responsable for loading in textures
+	and interfacing with the texture. these textures can be plastered on to a Mesh class
+	to be rendered on the screen.
+
+*/
 #ifndef SPRITE_H
 #define SPRITE_H
 

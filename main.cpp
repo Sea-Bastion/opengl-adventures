@@ -46,14 +46,11 @@ int main(int argc, char **argv){
 		return 302;
 	}
 	glEnable(GL_TEXTURE_2D);
-
-	//make texture
-	Sprite texture = Sprite("resources/pepe.png");
-
+	
 	//make meshes
 	glm::dvec2 size(.375, .5);
 	glm::dvec3 pos(0,0,0);
-	Mesh square = Mesh(size, pos, texture);
+	Mesh square = Mesh(size, pos);
 
 	//-------------------------------------render loop--------------------------------
 	while (!glfwWindowShouldClose(window)){

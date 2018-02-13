@@ -3,7 +3,9 @@
 Authors: Sebastian Cypert
 File Name: mesh.cpp
 Desciption:
-	gives meaning to the mesh class and describes all it functions
+	gives meaning to the Mesh class and describes all it functions. 
+	Mesh class it responsable for rendering squares on the screen which shaders,
+	textures, and hitboxs can be attached to.
 
 */
 #include <Mesh.hpp>
@@ -60,7 +62,7 @@ void Mesh::setTexture(Sprite texture){
 
 void Mesh::render(){
 
-	if(!Tid) Texture->bind();
+	if(Tid) Texture->bind();
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -68,7 +70,7 @@ void Mesh::render(){
 	glBindBuffer(GL_ARRAY_BUFFER, Vid);
 	glVertexAttribPointer(0, 3, GL_DOUBLE, false, 0, 0);
 
-	if(!Tid){
+	if(Tid){
 		glBindBuffer(GL_ARRAY_BUFFER, Tid);
 		glVertexAttribPointer(1, 2, GL_UNSIGNED_BYTE, false, 0, 0);
 	}
@@ -78,7 +80,7 @@ void Mesh::render(){
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	if(!Tid) Texture->unbind();
+	if(Tid) Texture->unbind();
 }
 
 Mesh::~Mesh()
