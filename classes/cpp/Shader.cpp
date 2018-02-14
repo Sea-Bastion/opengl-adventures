@@ -11,53 +11,16 @@ Description:
 
 #include <iostream>
 #include <cstdlib>
+#include <string>
 #include <GL/glew.h>
 #include <Shader.hpp>
 
-template <unsigned short vertexSize, unsigned short fragmentSize> 
-Shader::Shader(unsigned char (&vertexShader)[vertexSize], unsigned char (&fragmentShader)[fragmentSize]){
+Shader::Shader(std::string vertexShader, std::string fragmentShader){
 
 	program = glCreateProgram();
 
-	short vs = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vs, 1, &vertexShader, 0);
-	glCompileShader(vs);
-
-	int vsCompile;
-	glGetShaderiv(vs, GL_COMPILE_STATUS, &vsCompile);
-	if(!vsCompile){
-
-		int LogLen;
-		glGetShaderiv(vs, GL_INFO_LOG_LENGTH, &LogLen);
-
-		char *infoLog = new char[LogLen + 1];
-		glGetShaderInfoLog(vs, LogLen, 0, infoLog);
-
-		std::cerr << "Error compiling vertex shader:" << std::endl << infoLog;
-		delete[] infoLog;
-
-		exit(320);
-	}
-
-	short fs = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(fs, 1, &fragmentShader, 0);
-	glCompileShader(fs);
-
-	int fsCompile;
-	glGetShaderiv(fs, GL_COMPILE_STATUS, &fsCompile);
-	if(!fsCompile){
-
-		int LogLen;
-		glGetShaderiv(fs, GL_INFO_LOG_LENGTH, &LogLen);
-
-		char *infoLog = new char[LogLen + 1];
-		glGetShaderInfoLog(fs, LogLen, 0, infoLog);
-
-		std::cerr << "Error compiling fragment shader:" << std::endl << infoLog;
-		delete[] infoLog;
-
-		exit(321);
-	}
+	short vs = compileShader(GL_VERTEX_SHADER, vertexShader);
+	short fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
 
 	glAttachShader(program, vs);
 	glAttachShader(program, fs);
@@ -101,6 +64,37 @@ Shader::Shader(unsigned char (&vertexShader)[vertexSize], unsigned char (&fragme
 		exit(323);
 	}
 
+	glDeleteShader(vs);
+	glDeleteShader(fs);
+
+}
+
+unsigned Shader::compileShader(GLenum type, std::string& source){
+
+	unsigned id = glCreateShader(type);
+
+	const char* src = source.c_str();
+	const int size = source.size();
+	glShaderSource(id, 1, &src, &size);
+	glCompileShader(id);
+
+	int Compile;
+	glGetShaderiv(id, GL_COMPILE_STATUS, &Compile);
+	if(!Compile){
+
+		int LogLen;
+		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &LogLen);
+
+		char *infoLog = new char[LogLen + 1];
+		glGetShaderInfoLog(id, LogLen, 0, infoLog);
+
+		std::cerr << "Error compiling shader:" << std::endl << infoLog;
+		delete[] infoLog;
+
+		exit(320);
+	}
+
+	return id;
 }
 
 void Shader::bind(){

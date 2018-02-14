@@ -10,16 +10,18 @@ Description:
 #ifndef SHADER_H
 #define SHADER_H
 
+#include <string>
+
 class Shader{
 	public:
-		template <unsigned short vertexSize, unsigned short fragmentSize> 
-			Shader(unsigned char (&vertexShader)[vertexSize], unsigned char (&fragmentShader)[fragmentSize]);
+		Shader(std::string vertexShader, std::string fragmentShader);
 		~Shader();
 		void bind();
 		static void unbind();
 	
 	private:
 		unsigned program;
+		static unsigned compileShader(GLenum type, std::string& source);
 
 };
 

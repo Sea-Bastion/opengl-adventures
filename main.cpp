@@ -10,6 +10,8 @@ Name: opengl game
 
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <GL/glew.h>
 #include <Mesh.hpp>
 #include <GLFW/glfw3.h>
@@ -41,16 +43,27 @@ int main(int argc, char **argv){
 
 	//ready window for opengl
 	glfwMakeContextCurrent(window);
+	glewExperimental = GL_TRUE;
 	if (glewInit()){
 		std::cerr << "failed to initalize opengl\n make sure you have the opengl drivers installed" << std::endl;
 		return 302;
 	}
 	glEnable(GL_TEXTURE_2D);
+
+	std::ifstream vs("shaders/entity.vs.glsl");
+	std::stringstream vsBuffer;
+	vsBuffer << vs.rdbuf();
+
+	std::ifstream fs("shaders/lit.fl.glsl");
+	std::stringstream fsBuffer;
+	fsBuffer << fs.rdbuf();
+
+	Shader shader(vsBuffer.str(), fsBuffer.str()); 
 	
 	//make meshes
 	glm::dvec2 size(.375, .5);
 	glm::dvec3 pos(0,0,0);
-	Mesh square = Mesh(size, pos);
+	Mesh square(size, pos, shader);
 
 	//-------------------------------------render loop--------------------------------
 	while (!glfwWindowShouldClose(window)){

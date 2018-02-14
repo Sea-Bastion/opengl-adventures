@@ -13,14 +13,15 @@ Description:
 
 #include <GL/glew.h>
 #include <Sprite.hpp>
+#include <Shader.hpp>
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <GLFW/glfw3.h>
 
 class Mesh{
 	public:
-		Mesh(glm::dvec2 size, glm::dvec3 pos);
-		Mesh(glm::dvec2 size, glm::dvec3 pos, Sprite texture);
+		Mesh(glm::dvec2 size, glm::dvec3 pos, Shader shader);
+		Mesh(glm::dvec2 size, glm::dvec3 pos, Shader shader, Sprite texture);
 		virtual ~Mesh();
 		void render();
 		void setTexture(Sprite texture);

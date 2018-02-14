@@ -10,9 +10,10 @@ Desciption:
 */
 #include <Mesh.hpp>
 #include <Sprite.hpp>
+#include <Shader.hpp>
 #include <GL/glut.h>
 
-Mesh::Mesh(glm::dvec2 size, glm::dvec3 pos)
+Mesh::Mesh(glm::dvec2 size, glm::dvec3 pos, Shader shader)
 {
 
 	/*
@@ -46,7 +47,7 @@ Mesh::Mesh(glm::dvec2 size, glm::dvec3 pos)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-Mesh::Mesh(glm::dvec2 size, glm::dvec3 pos, Sprite texture): Mesh(size, pos){
+Mesh::Mesh(glm::dvec2 size, glm::dvec3 pos, Shader shader, Sprite texture):Mesh(size, pos, shader){
 	setTexture(texture);
 }
 
