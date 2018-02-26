@@ -21,7 +21,7 @@ class Shader{
 	
 	private:
 		unsigned program;
-		static unsigned compileShader(GLenum type, std::string& source);
+		unsigned short vs, fs;
 
 };
 

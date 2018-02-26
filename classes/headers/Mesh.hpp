@@ -33,6 +33,7 @@ class Mesh{
 		glm::ivec3 pos;
 		glm::ivec2 size;
 		unsigned Vid, Iid, Tid; // vertex id, indices id
+		Shader *shader;
 		Sprite *Texture;
 		const unsigned char indices[6]{
 			0,1,2,

@@ -15,12 +15,14 @@ Description:
 #include <GL/glew.h>
 #include <Shader.hpp>
 
+unsigned compileShader(GLenum type, std::string& source);
+
 Shader::Shader(std::string vertexShader, std::string fragmentShader){
 
 	program = glCreateProgram();
 
-	short vs = compileShader(GL_VERTEX_SHADER, vertexShader);
-	short fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
+	vs = compileShader(GL_VERTEX_SHADER, vertexShader);
+	fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
 
 	glAttachShader(program, vs);
 	glAttachShader(program, fs);
@@ -64,18 +66,14 @@ Shader::Shader(std::string vertexShader, std::string fragmentShader){
 		exit(323);
 	}
 
-	glDeleteShader(vs);
-	glDeleteShader(fs);
-
 }
 
-unsigned Shader::compileShader(GLenum type, std::string& source){
+unsigned compileShader(GLenum type, std::string& source){
 
 	unsigned id = glCreateShader(type);
 
 	const char* src = source.c_str();
-	const int size = source.size();
-	glShaderSource(id, 1, &src, &size);
+	glShaderSource(id, 1, &src, nullptr);
 	glCompileShader(id);
 
 	int Compile;
@@ -88,7 +86,8 @@ unsigned Shader::compileShader(GLenum type, std::string& source){
 		char *infoLog = new char[LogLen + 1];
 		glGetShaderInfoLog(id, LogLen, 0, infoLog);
 
-		std::cerr << "Error compiling shader:" << std::endl << infoLog;
+		std::cerr << "Error compiling " << ((type == GL_VERTEX_SHADER)?"vertex":"fragment") 
+			<< " shader:" << std::endl << infoLog;
 		delete[] infoLog;
 
 		exit(320);
@@ -106,5 +105,9 @@ void Shader::unbind(){
 }
 
 Shader::~Shader(){
+	glDetachShader(program, vs);
+	glDetachShader(program, fs);
+	glDeleteShader(vs);
+	glDeleteShader(fs);
 	glDeleteProgram(program);
 }

@@ -50,15 +50,29 @@ int main(int argc, char **argv){
 	}
 	glEnable(GL_TEXTURE_2D);
 
-	std::ifstream vs("shaders/entity.vs.glsl");
-	std::stringstream vsBuffer;
-	vsBuffer << vs.rdbuf();
+	std::string 
+	vs(
+		"#version 120\n"
 
-	std::ifstream fs("shaders/lit.fl.glsl");
-	std::stringstream fsBuffer;
-	fsBuffer << fs.rdbuf();
+		"attribute vec3 Vertces;\n"
 
-	Shader shader(vsBuffer.str(), fsBuffer.str()); 
+		"void main() {\n"
+		"	gl_Position = vec4(Vertces, 1.0);\n"
+		"}\n"
+
+	),
+
+	fs(
+		"#version 120\n"
+
+		"void main() {\n"
+		"	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n"
+		"}\n"
+
+
+	);
+
+	Shader shader(vs, fs); 
 	
 	//make meshes
 	glm::dvec2 size(.375, .5);
@@ -76,6 +90,7 @@ int main(int argc, char **argv){
 		glfwGetFramebufferSize(window, &width, &height);
 		glViewport(0, 0, width, height);
 
+		shader.bind();
 		square.render();
 
 		glfwSwapBuffers(window);

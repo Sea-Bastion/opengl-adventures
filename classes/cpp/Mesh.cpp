@@ -16,6 +16,8 @@ Desciption:
 Mesh::Mesh(glm::dvec2 size, glm::dvec3 pos, Shader shader)
 {
 
+	//*(this->shader) = shader;
+
 	/*
 
 		positioning will be done with the vector shader but that is not
@@ -63,6 +65,7 @@ void Mesh::setTexture(Sprite texture){
 
 void Mesh::render(){
 
+	//shader->bind();
 	if(Tid) Texture->bind();
 
 	glEnableVertexAttribArray(0);
@@ -81,7 +84,12 @@ void Mesh::render(){
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+
 	if(Tid) Texture->unbind();
+	//shader->unbind();
 }
 
 Mesh::~Mesh()
